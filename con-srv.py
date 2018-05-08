@@ -41,6 +41,7 @@ con_date = "October 26-28, 2018"
 con_full_reg_file = "conference.txt"
 con_current_reg_file = "registered.txt"
 con_manual_reg_file = "manual.txt"
+con_onsite_reg_file = "onsite.txt"
 con_types_file = "types.txt"
 con_type_attendees = ["ATTENDEE","ROOMBLOCK","CRYPTKIDS"]
 con_type_speakers = ["SPEAKER"]
@@ -99,8 +100,12 @@ sponsors_text = "Sponsors"
 sponsors_top_offset = speakers_top_offset + text_vertical_spacing
 sponsors_offset = (text_left_offset,sponsors_top_offset)
 sponsors_number_offset = (numbers_left_offset,sponsors_top_offset)
+manual_text = "Manual"
+manual_top_offset = sponsors_top_offset + text_vertical_spacing
+manual_offset = (text_left_offset, manual_top_offset)
+manual_number_offset = (numbers_left_offset, manual_top_offset)
 onsite_text = "Onsite"
-onsite_top_offset = sponsors_top_offset + text_vertical_spacing
+onsite_top_offset = manual_top_offset + text_vertical_spacing
 onsite_offset = (text_left_offset, onsite_top_offset)
 onsite_number_offset = (numbers_left_offset, onsite_top_offset)
 total_text = "Total"
@@ -111,6 +116,13 @@ total_line_top = onsite_top_offset + title_size + 10
 total_rect = (text_left_offset,total_line_top,numbers_right,2)
 numbers_rect = (numbers_left_offset,attendees_top_offset,numbers_right,numbers_botton)
 
+#################################################
+
+#------------------------------------------------
+# Add a Log Message
+#------------------------------------------------
+def log_msg(msg):
+    log.append(time.strftime("%m/%d/%y %H:%M:%S") + ": " + msg)
 
 #################################################
 
@@ -157,6 +169,8 @@ try:
     screen.blit(label_speakers_text, speakers_offset)
     label_sponsors_text = title_font.render(sponsors_text,1,color_dark_blue)
     screen.blit(label_sponsors_text, sponsors_offset)
+    label_manual_text = title_font.render(manual_text,1,color_dark_blue)
+    screen.blit(label_manual_text, manual_offset)
     label_onsite_text = title_font.render(onsite_text,1,color_dark_blue)
     screen.blit(label_onsite_text, onsite_offset)
     label_total_text = title_font.render(total_text,1,color_dark_blue)
@@ -172,7 +186,7 @@ try:
     with open(con_full_reg_file) as f:
         reg_content = f.readlines()
     reg_content = [x.strip() for x in reg_content]
-    #print "Lines in Full Con Reg File = " + str(len(reg_content))
+    log_msg("Read Full Conference Registration File")
     
     # Read Conference Registration Types File
     with open(con_types_file) as f:
@@ -182,7 +196,7 @@ try:
     for i in range(0,len(reg_types)):
         if not (reg_types[i].startswith('#')):
             reg_type.append(reg_types[i])
-    #print "Conference Types = " + str(len(reg_type))
+    log_msg("Read Conference Registration Types File")
     
     # Determine the Badge and Chip Types
     reg_badge = []
@@ -193,47 +207,91 @@ try:
             reg_badge.append(reg_type[i])
         elif (l[0] == "Chip"):
             reg_chip.append(reg_type[i])
-    #print "Badge Types = " + str(len(reg_badge))
-    #print "Chip Types = " + str(len(reg_chip))
+    
+    # Determine Different Adders for Attendees, Speakers, and Sponsors
+    attendee_adder = 1
+    speaker_adder = 1
+    sponsor_adder = 4
+    for i in range(0,len(reg_badge)):
+        l = reg_badge[i].split(',')
+        if (l[1] in con_type_attendees):
+            attendee_adder = int(l[3])
+        elif (l[1] in con_type_speakers):
+            speaker_adder = int(l[3])
+        elif (l[1] in con_type_sponsors):
+            sponsor_adder = int(l[3])            
     
     # Find the Maximum Number of Attendees, Speakers, and Sponsors
     attendees_max = 0
     speakers_max = 0
     sponsors_max = 0
+    reg_code = []
     for i in range(0,len(reg_content)):
         l = reg_content[i].split(',')
+        reg_code.append(l[0])
         if (l[2] in con_type_attendees):
-            adder = 0
-            for i in range(0,len(reg_badge)):
-                b = reg_badge[i].split(',')
-                if (l[2] == b[1]):
-                    adder = int(b[3])
-            attendees_max += adder
+            attendees_max += attendee_adder
         elif (l[2] in con_type_speakers):
-            adder = 0
-            for i in range(0,len(reg_badge)):
-                b = reg_badge[i].split(',')
-                if (l[2] == b[1]):
-                    adder = int(b[3])
-            speakers_max += adder
+            speakers_max += speaker_adder
         elif (l[2] in con_type_sponsors):
-            adder = 0
-            for i in range(0,len(reg_badge)):
-                b = reg_badge[i].split(',')
-                if (l[2] == b[1]):
-                    adder = int(b[3])
-            sponsors_max += adder
+            sponsors_max += sponsor_adder
     
     # Main Loop
     running = True
     cnt = 0
+    attendees_current = 0
+    speakers_current = 0
+    sponsors_current = 0
+    reg_time = 0.0
+    manual_current = 0
+    manual_time = 0.0
+    onsite_current = 0
+    onsite_time = 0.0
     while running:
-        # Determine Current Values
-        attendees_current = 0
-        speakers_current = 0
-        sponsors_current = 0
-        onsite_current = 0
-        total_current = attendees_current + speakers_current + sponsors_current + onsite_current
+        # Determine Current Registrations
+        reg_current_time = os.path.getmtime(con_current_reg_file)
+        if (reg_current_time > reg_time):
+            # Read Current Registration File
+            with open(con_current_reg_file) as f:
+                reg_current = f.readlines()
+            reg_current = [x.strip() for x in reg_current]
+            for i in range(0,len(reg_current)):
+                reg_index = reg_code.index(reg_current[i])
+                l = reg_content[reg_index].split(',')
+                if (l[2] in con_type_attendees):
+                    attendees_current += attendee_adder
+                elif (l[2] in con_type_speakers):
+                    speakers_current += speaker_adder
+                elif (l[2] in con_type_sponsors):
+                    sponsors_current += sponsor_adder
+            reg_time = reg_current_time
+        
+        # Determine Manual Registrations
+        manual_current_time = os.path.getmtime(con_manual_reg_file)
+        if (manual_current_time > manual_time):
+            # Read Manual Registration File
+            with open(con_manual_reg_file) as f:
+                reg_manual = f.readlines()
+            reg_manual = [x.strip() for x in reg_manual]
+            manual_current = len(reg_manual)
+            # TODO: Validate the manual registrations against the existing registration file
+            manual_time = manual_current_time
+            log_msg("Manual Registration File Changed")
+        
+        # Determine Onsite Registrations
+        onsite_current_time = os.path.getmtime(con_onsite_reg_file)
+        if (onsite_current_time > onsite_time):
+            # Read Onsite Registration File
+            with open(con_onsite_reg_file) as f:
+                reg_onsite = f.readlines()
+            reg_onsite = [x.strip() for x in reg_onsite]
+            # Only look at the last line in the file for the number of onsite registrations
+            onsite_current = int(reg_onsite[len(reg_onsite)-1])
+            log_msg("Onsite Registration File Changed")
+            onsite_time = onsite_current_time
+        
+        # Update Total Values
+        total_current = attendees_current + speakers_current + sponsors_current + manual_current + onsite_current
         total_max = attendees_max + speakers_max + sponsors_max + onsite_current
         
         # Print Current Values
@@ -244,13 +302,15 @@ try:
         screen.blit(label_speakers_number, speakers_number_offset)
         label_sponsors_number = title_font.render(str(sponsors_current) + " / " + str(sponsors_max),1,color_dark_red)
         screen.blit(label_sponsors_number, sponsors_number_offset)
+        label_manual_number = title_font.render(str(manual_current),1,color_dark_red)
+        screen.blit(label_manual_number, manual_number_offset)
         label_onsite_number = title_font.render(str(onsite_current),1,color_dark_red)
         screen.blit(label_onsite_number, onsite_number_offset)
         label_total_number = title_font.render(str(total_current) + " / " + str(total_max),1,color_dark_red)
         screen.blit(label_total_number, total_number_offset)
         pygame.draw.rect(screen,color_dark_blue,total_rect)
         
-        log.append(time.strftime("%m/%d/%y %H:%M:%S") + ": Server Log #" + str(cnt))
+        #log_msg("Server Log #" + str(cnt))
         pygame.draw.rect(screen,color_navy,log_text_rect)
         log_text_offset_top = log_text_offset_start
         for i in range(0,9):
@@ -259,7 +319,7 @@ try:
             log_text_offset_top += log_text_spacing
         
         pygame.display.update()
-        time.sleep(0.5)
+        time.sleep(0.1)
         cnt += 1
         
         pygame.event.pump()
