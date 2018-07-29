@@ -43,7 +43,8 @@ con_current_reg_file = "registered.txt"
 con_manual_reg_file = "manual.txt"
 con_onsite_reg_file = "onsite.txt"
 con_types_file = "types.txt"
-con_type_attendees = ["ATTENDEE","ROOMBLOCK","CRYPTKIDS"]
+con_type_attendees = ["ATTENDEE","ROOMBLOCK"]
+con_type_kids = ["CRYPTKIDS"]
 con_type_speakers = ["SPEAKER"]
 con_type_sponsors = ["SPONSOR"]
 
@@ -70,8 +71,8 @@ con_date_offset = (350,60)
 header_rect = (0,0,1024,100)
 main_rect = (0,100,1024,500)
 font_family = "sans-serif"
-title_size = 40
-class_title_size = 28
+title_size = 32
+class_title_size = 20
 log_family = "monospace"
 log_title_size = 18
 log_outer_rect = (0,550,1024,218)
@@ -88,12 +89,16 @@ numbers_left_offset = 220
 numbers_botton = 400
 numbers_right = 400
 attendees_top_offset = 120
-text_vertical_spacing = 60
+text_vertical_spacing = 48
 attendees_text = "Attendees"
 attendees_offset = (text_left_offset,attendees_top_offset)
 attendees_number_offset = (numbers_left_offset,attendees_top_offset)
+kids_text = "CryptKids"
+kids_top_offset = attendees_top_offset + text_vertical_spacing
+kids_offset = (text_left_offset,kids_top_offset)
+kids_number_offset = (numbers_left_offset,kids_top_offset)
 speakers_text = "Speakers"
-speakers_top_offset = attendees_top_offset + text_vertical_spacing
+speakers_top_offset = kids_top_offset + text_vertical_spacing
 speakers_offset = (text_left_offset,speakers_top_offset)
 speakers_number_offset = (numbers_left_offset,speakers_top_offset)
 sponsors_text = "Sponsors"
@@ -165,6 +170,8 @@ try:
     # Display the Counter Headers
     label_attendees_text = title_font.render(attendees_text,1,color_dark_blue)
     screen.blit(label_attendees_text, attendees_offset)
+    label_kids_text = title_font.render(kids_text,1,color_dark_blue)
+    screen.blit(label_kids_text, kids_offset)
     label_speakers_text = title_font.render(speakers_text,1,color_dark_blue)
     screen.blit(label_speakers_text, speakers_offset)
     label_sponsors_text = title_font.render(sponsors_text,1,color_dark_blue)
@@ -210,12 +217,15 @@ try:
     
     # Determine Different Adders for Attendees, Speakers, and Sponsors
     attendee_adder = 1
+    kids_adder = 1
     speaker_adder = 1
     sponsor_adder = 4
     for i in range(0,len(reg_badge)):
         l = reg_badge[i].split(',')
         if (l[1] in con_type_attendees):
             attendee_adder = int(l[3])
+        elif (l[1] in con_type_kids):
+            kids_adder = int(l[3])
         elif (l[1] in con_type_speakers):
             speaker_adder = int(l[3])
         elif (l[1] in con_type_sponsors):
@@ -223,6 +233,7 @@ try:
     
     # Find the Maximum Number of Attendees, Speakers, and Sponsors
     attendees_max = 0
+    kids_max = 0
     speakers_max = 0
     sponsors_max = 0
     reg_code = []
@@ -231,6 +242,8 @@ try:
         reg_code.append(l[0])
         if (l[2] in con_type_attendees):
             attendees_max += attendee_adder
+        elif (l[2] in con_type_kids):
+            kids_max += kids_adder
         elif (l[2] in con_type_speakers):
             speakers_max += speaker_adder
         elif (l[2] in con_type_sponsors):
@@ -240,6 +253,7 @@ try:
     running = True
     cnt = 0
     attendees_current = 0
+    kids_current = 0
     speakers_current = 0
     sponsors_current = 0
     reg_time = 0.0
@@ -260,6 +274,8 @@ try:
                 l = reg_content[reg_index].split(',')
                 if (l[2] in con_type_attendees):
                     attendees_current += attendee_adder
+                elif (l[2] in con_type_kids):
+                    kids_current += kids_adder
                 elif (l[2] in con_type_speakers):
                     speakers_current += speaker_adder
                 elif (l[2] in con_type_sponsors):
@@ -291,13 +307,15 @@ try:
             onsite_time = onsite_current_time
         
         # Update Total Values
-        total_current = attendees_current + speakers_current + sponsors_current + manual_current + onsite_current
-        total_max = attendees_max + speakers_max + sponsors_max + onsite_current
+        total_current = attendees_current + kids_current + speakers_current + sponsors_current + manual_current + onsite_current
+        total_max = attendees_max + kids_max + speakers_max + sponsors_max + onsite_current
         
         # Print Current Values
         pygame.draw.rect(screen,color_light_gray,numbers_rect)
         label_attendees_number = title_font.render(str(attendees_current) + " / " + str(attendees_max),1,color_dark_red)
         screen.blit(label_attendees_number, attendees_number_offset)
+        label_kids_number = title_font.render(str(kids_current) + " / " + str(kids_max),1,color_dark_red)
+        screen.blit(label_kids_number, kids_number_offset)
         label_speakers_number = title_font.render(str(speakers_current) + " / " + str(speakers_max),1,color_dark_red)
         screen.blit(label_speakers_number, speakers_number_offset)
         label_sponsors_number = title_font.render(str(sponsors_current) + " / " + str(sponsors_max),1,color_dark_red)
