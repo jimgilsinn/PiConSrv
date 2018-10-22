@@ -1,35 +1,37 @@
 ###############################################################################
 #
-# 2017 BSidesDC Example
+# 2018 BSidesDC Example
 #
 # Format:
-# CODE,TYPE,DESCRIPTION,NUMBER,DAY,COLOR
+# CODE,TYPE,DESCRIPTION,NUMBER,DAY,IMAGE (or COLOR)
 #
 # CODE = Unique code used in conference file
 # TYPE = Badge/Chip, Badge for a badge, Chip for a class or special event
 # DESCRIPTION = Full description (NOTE: put quotes around text)
 # NUMBER = Number of badges/chips to give out
 # DAY = Day that the badge/chip applies
-# COLOR = Specific color requirements for chips
+# IMAGE = Image of the laminate for the class
 #
 ###############################################################################
-ATTENDEE,Badge,"Regular Attendee",1,Full,NA
-CRYPTKIDS,Badge,"CryptKids",1,Full,NA
-SPEAKER,Badge,"Speaker",1,Full,NA
-SPONSOR,Badge,"Sponsor",4,Full,NA
-ROOMBLOCK,Badge,"Roomblock Attendee",2,Full,NA
-NETWARS,Chip,"SANS NetWars",1,Friday,Orange
-ADV_WIFI,Chip,"Advanced Wireless Attacks Against Enterprise Networks",1,Friday,Red
-CRYPTO_101,Chip,"Crypto 101 with a Hands-on Introduction to Cryptographic Attacks",1,Friday,Green
-CLOUD_FORENSICS,Chip,"Dissecting the Cloud: Understanding Cloud-based Digital Forensics",1,Friday,Yellow
-SPLUNK,Chip,"Intro to Splunk for Security Professionals",1,Saturday,Orange
-BINARY_REVERSING,Chip,"Binary Reverse Engineering for Beginners",1,Saturdy,Red
-SOC_PREP,Chip,"SOC Analyst Prep",1,Saturday,Green
-YARA,Chip,"Effective YARA",1,Sunday,Orange
-THREAT_MODELING,Chip,"Real World Threat Modeling",1,Sunday,Red
-PAN,Chip,"Palo Alto Networks – Advanced Endpoint Protection Ultimate Test Drive",1,Sunday,Blue
-SECURE_CODING,Chip,"Secure Coding for Web Applications",1,Sunday,Green
-BRO,Chip,"Bro Crash Course",1,Sunday,Yellow
-POWERSHELLKIDS,Chip,"PowerShell for Kids",1,Sunday,Special
-KIDSCRYPTO,Chip,"Crypt Kids Crypto Lab",1,Sunday,Special
-
+ATTENDEE,Badge,"Regular Attendee",1,Full,BLUE
+CRYPTKIDS,Badge,"CryptKids",1,Full,GRAY
+SPEAKER,Badge,"Speaker",1,Full,WHITE
+SPONSOR,Badge,"Sponsor",4,Full,GREEN
+ROOMBLOCK,Badge,"Roomblock Attendee",2,Full,BLUE
+PROSVJOES,Laminate,"Pros Vs. Joes CTF",1,Friday,PROSVJOES.png
+ADVWIFI,Laminate,"Advanced Wireless Attacks Against Enterprise Networks",1,Saturday,ADVWIFI.png
+AGILE,Laminate,"Agile: Mastering Scrum as the Scrum Master",1,Saturday,AGILE.png
+BINARY_REVERSING,Laminate,"Binary Reverse Engineering for Beginners",1,Saturdy,BINARY_REVERSING.png
+BRO,Laminate,"Bro Crash Course",1,Friday,BRO.png
+COMMSKILLS,Laminate,"Persuasive Communication Skills for Infosec",Saturday,COMMSKILLS.png
+CRYPTO,Laminate,"Crypto for Hackers",1,Sunday,CRYPTO.png
+EUGDPR,Laminate,"EU GDPR Essentials",1,Saturday,EUGDPR.png
+KIDSCTF,Laminate,"Crypt Kids CTF 101",1,Sunday,KIDSCTF.png
+KIDSWIFI,Laminate,"Crypt Kids Wifi CTF Class",1,Sunday,KIDSWIFI.png
+NOOBZ,Laminate,"CTF 4 Noobz",1,Friday,NOOBZ.png
+OPENSOC,Laminate,"OpenSOC.io Blueteam CTF",1,Friday,OPENSOC.png
+RASPI,Laminate,"Raspberry Pi workshop: setting up DNS filtering with Pi-Hole, from scratch",1,Saturday,RASPI.png
+SHARINGSECRETS,Laminate,"Sharing Secrets: Data Quality Assessment & Analytics",1,Sunday,SHARINGSECRETS.png
+WIRELESSLAB,Laminate,"Wireless Village Hacking Lab",1,Friday,WIRELESSLAB.png
+WMI1,Laminate,"Offensive WMI Workshop (1)",1,Sunday,WMI1.png
+WMI2,Laminate,"Offensive WMI Workshop (2)",1,Sunday,WMI2.png
