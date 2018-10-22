@@ -6,7 +6,8 @@
 # CODE,TYPE,DESCRIPTION,NUMBER,DAY,IMAGE (or COLOR)
 #
 # CODE = Unique code used in conference file
-# TYPE = Badge/Chip, Badge for a badge, Chip for a class or special event
+# TYPE = Badge/Chip/Laminate, Badge for a badge, Chip for a poker chip,
+#        Laminate for laminated badge
 # DESCRIPTION = Full description (NOTE: put quotes around text)
 # NUMBER = Number of badges/chips to give out
 # DAY = Day that the badge/chip applies

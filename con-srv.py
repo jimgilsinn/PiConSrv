@@ -233,7 +233,7 @@ try:
     class_text_top = attendees_top_offset
     class_list = []
     for i in range(0, len(type_code)):
-        if type_type[i] == "Chip":
+        if type_type[i] == "Chip" or type_type[i] == "Laminate":
             t = type_desc[i].strip('"')
             label_class_text = classes_font.render(t[:class_max_characters], 1, color_black)
             screen.blit(label_class_text, (class_left_offset, class_text_top))
