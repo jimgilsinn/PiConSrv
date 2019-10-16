@@ -3,7 +3,7 @@
 # 2018 BSidesDC Example
 #
 # Format:
-# CODE,TYPE,DESCRIPTION,NUMBER,DAY,IMAGE (or COLOR)
+# CODE,TYPE,DESCRIPTION,NUMBER,DAY,COLOR
 #
 # CODE = Unique code used in conference file
 # TYPE = Badge/Chip/Laminate, Badge for a badge, Chip for a poker chip,
@@ -11,28 +11,28 @@
 # DESCRIPTION = Full description (NOTE: put quotes around text)
 # NUMBER = Number of badges/chips to give out
 # DAY = Day that the badge/chip applies
-# IMAGE = Image of the laminate for the class
+# COLOR = HTML-style RGB color code
 #
 ###############################################################################
-ATTENDEE,Badge,"Regular Attendee",1,Full,BLUE
-CRYPTKIDS,Badge,"CryptKids",1,Full,GRAY
-SPEAKER,Badge,"Speaker",1,Full,WHITE
-SPONSOR,Badge,"Sponsor",4,Full,GREEN
-ROOMBLOCK,Badge,"Roomblock Attendee",2,Full,BLUE
-PROSVJOES,Laminate,"Pros Vs. Joes CTF",1,Friday,PROSVJOES.png
-ADVWIFI,Laminate,"Advanced Wireless Attacks Against Enterprise Networks",1,Saturday,ADVWIFI.png
-AGILE,Laminate,"Agile: Mastering Scrum as the Scrum Master",1,Saturday,AGILE.png
-BINARY_REVERSING,Laminate,"Binary Reverse Engineering for Beginners",1,Saturdy,BINARY_REVERSING.png
-BRO,Laminate,"Bro Crash Course",1,Friday,BRO.png
-COMMSKILLS,Laminate,"Persuasive Communication Skills for Infosec",Saturday,COMMSKILLS.png
-CRYPTO,Laminate,"Crypto for Hackers",1,Sunday,CRYPTO.png
-EUGDPR,Laminate,"EU GDPR Essentials",1,Saturday,EUGDPR.png
-KIDSCTF,Laminate,"Crypt Kids CTF 101",1,Sunday,KIDSCTF.png
-KIDSWIFI,Laminate,"Crypt Kids Wifi CTF Class",1,Sunday,KIDSWIFI.png
-NOOBZ,Laminate,"CTF 4 Noobz",1,Friday,NOOBZ.png
-OPENSOC,Laminate,"OpenSOC.io Blueteam CTF",1,Friday,OPENSOC.png
-RASPI,Laminate,"Raspberry Pi workshop: setting up DNS filtering with Pi-Hole, from scratch",1,Saturday,RASPI.png
-SHARINGSECRETS,Laminate,"Sharing Secrets: Data Quality Assessment & Analytics",1,Sunday,SHARINGSECRETS.png
-WIRELESSLAB,Laminate,"Wireless Village Hacking Lab",1,Friday,WIRELESSLAB.png
-WMI1,Laminate,"Offensive WMI Workshop (1)",1,Sunday,WMI1.png
-WMI2,Laminate,"Offensive WMI Workshop (2)",1,Sunday,WMI2.png
+ATTENDEE,Badge,"General Attendee",1,Full,27AAE1
+CRYPTKIDS,Badge,"CryptKids",1,Full,A7A9AC
+SPEAKER,Badge,"Speaker",1,Full,FFFFFF
+SPONSOR,Badge,"Sponsor",4,Full,009444
+ROOMBLOCK,Badge,"Roomblock Attendee",2,Full,27AAE1
+PROSVJOES,Laminate,"Pros Vs. Joes CTF",1,Friday,27AAE1
+ADVWIFI,Laminate,"Advanced Wireless Attacks Against Enterprise Networks",1,Saturday,47494C
+AGILE,Laminate,"Agile: Mastering Scrum as the Scrum Master",1,Saturday,DA1C5C
+BINARY_REVERSING,Laminate,"Binary Reverse Engineering for Beginners",1,Saturdy,009444
+BRO,Laminate,"Bro Crash Course",1,Friday,F7941D
+COMMSKILLS,Laminate,"Persuasive Communication Skills for Infosec",Saturday,2B3990
+CRYPTO,Laminate,"Crypto for Hackers",1,Sunday,A7A9AC
+EUGDPR,Laminate,"EU GDPR Essentials",1,Saturday,ED1C24
+KIDSCTF,Laminate,"Crypt Kids CTF 101",1,Sunday,8DC63F
+KIDSWIFI,Laminate,"Crypt Kids Wifi CTF Class",1,Sunday,F7941D
+NOOBZ,Laminate,"CTF 4 Noobz",1,Friday,662D91
+OPENSOC,Laminate,"OpenSOC.io Blueteam CTF",1,Friday,096790
+RASPI,Laminate,"Raspberry Pi workshop: setting up DNS filtering with Pi-Hole, from scratch",1,Saturday,FFFFFF
+SHARINGSECRETS,Laminate,"Sharing Secrets: Data Quality Assessment & Analytics",1,Sunday,C2B59B
+WIRELESSLAB,Laminate,"Wireless Village Hacking Lab",1,Friday,18CB24
+WMI1,Laminate,"Offensive WMI Workshop (1)",1,Sunday,F9ED32
+WMI2,Laminate,"Offensive WMI Workshop (2)",1,Sunday,F9ED32
